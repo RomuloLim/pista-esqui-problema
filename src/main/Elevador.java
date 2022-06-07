@@ -5,6 +5,8 @@
  */
 package main;
 
+import frames.MyFrame;
+
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,13 +20,16 @@ public class Elevador implements Runnable {
     Filas filas;
     int vazio = 4;
     int contadorElevador = 1;
+    MyFrame frame;
+
 
     //Strings para impressão de resultados.
     String elevador = "";
     String tempoEmFila = "";
 
-    public Elevador(Filas f) {
+    public Elevador(Filas f, MyFrame frame) {
         filas = f;
+        this.frame = frame;
     }
 
     public Filas getFilas() {
@@ -54,6 +59,7 @@ public class Elevador implements Runnable {
                         tempoEmFila = tempoEmFila
                                 + "\nTempo em fila de esquiador em LeftTriple: "
                                 + esqui.tempoEmFila() + " milisegundos.";
+                        frame.removerEsquiador("LT", filas.getLeftTriple().size());
                     }
 
                     elevador = "LT LT LT";
@@ -69,6 +75,7 @@ public class Elevador implements Runnable {
                         tempoEmFila = tempoEmFila
                                 + "\nTempo em fila de esquiador em RightTriple: "
                                 + esqui.tempoEmFila() + " milisegundos.";
+                        frame.removerEsquiador("RT", filas.getRightTriple().size());
                     }
 
                     elevador = "RT RT RT";
@@ -98,6 +105,7 @@ public class Elevador implements Runnable {
                                     + esqui.tempoEmFila() + " milisegundos.";
 
                             elevador = "LS " + elevador;
+                            frame.removerEsquiador("LS", filas.getLeftSingle().size());
                         }
 
                         chave = false;
@@ -111,6 +119,7 @@ public class Elevador implements Runnable {
                                     + esqui.tempoEmFila() + " milisegundos.";
 
                             elevador = elevador + "RS ";
+                            frame.removerEsquiador("RS", filas.getRightSingle().size());
                         }
 
                         chave = true;
@@ -127,6 +136,7 @@ public class Elevador implements Runnable {
                             + esqui.tempoEmFila() + " milisegundos.";
 
                     elevador = elevador + " RS";
+                    frame.removerEsquiador("RS", filas.getRightSingle().size());
                 }
 
                 if (rightTriple
@@ -139,6 +149,7 @@ public class Elevador implements Runnable {
                             + esqui.tempoEmFila() + " milisegundos.";
 
                     elevador = "LS " + elevador;
+                    frame.removerEsquiador("RS", filas.getRightSingle().size());
                 }
             }
 

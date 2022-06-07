@@ -5,6 +5,8 @@
  */
 package main;
 
+import frames.MyFrame;
+
 /**
  *
  * @author Schinwinkwinsky
@@ -12,10 +14,14 @@ package main;
 public class Esquiador implements Runnable {
 
     Filas filas;
+    MyFrame frame;
+    int posicaoFila;
     long tempoEntrada;
 
-    public Esquiador(Filas f) {
+    public Esquiador(Filas f, MyFrame frame, int posicaoFila) {
         this.filas = f;
+        this.frame = frame;
+        this.posicaoFila = posicaoFila;
     }
 
     public Filas getFilas() {
@@ -34,6 +40,8 @@ public class Esquiador implements Runnable {
 
     @Override
     public synchronized void run() {
+        int y = 0;
+        int x = 0;
         if (filas.getLeftSingle().size() < filas.getRightSingle().size()
                 && filas.getLeftSingle().size() < (filas.getLeftTriple().size() * 2)
                 && filas.getLeftSingle().size() < (filas.getRightTriple().size() * 2)) {
@@ -42,6 +50,8 @@ public class Esquiador implements Runnable {
 
             System.out.println();
             System.out.println("Esquiador entrou na fila: LeftSingle");
+            x = filas.getLeftSingle().size() * 20;
+            y = 20;
 
         } else if (filas.getRightSingle().size() <= filas.getLeftSingle().size()
                 && filas.getRightSingle().size() < (filas.getRightTriple().size() * 2)
@@ -51,18 +61,24 @@ public class Esquiador implements Runnable {
 
             System.out.println();
             System.out.println("Esquiador entrou na fila: RightSingle");
+            x = filas.getRightSingle().size() * 20;
+            y = 60;
         } else if (filas.getLeftTriple().size() <= filas.getRightTriple().size()) {
             filas.getLeftTriple().add(this);
             tempoEntrada = System.currentTimeMillis();
 
             System.out.println();
             System.out.println("Esquiador entrou na fila: LeftTriple");
+            x = filas.getLeftTriple().size() * 20;
+            y = 100;
         } else {
             filas.getRightTriple().add(this);
             tempoEntrada = System.currentTimeMillis();
 
             System.out.println();
             System.out.println("Esquiador entrou na fila: RightTriple");
+            x = filas.getRightTriple().size() * 20;
+            y = 140;
         }
 
         System.out.println();
@@ -71,5 +87,6 @@ public class Esquiador implements Runnable {
         System.out.println("RightSingle: " + filas.getRightSingle().size());
         System.out.println("LeftTriple: " + filas.getLeftTriple().size());
         System.out.println("RightTriple: " + filas.getRightTriple().size());
+        this.frame.adicionarEsquiador(x, y);
     }
 }
