@@ -15,13 +15,11 @@ public class Esquiador implements Runnable {
 
     Filas filas;
     MyFrame frame;
-    int posicaoFila;
     long tempoEntrada;
 
-    public Esquiador(Filas f, MyFrame frame, int posicaoFila) {
+    public Esquiador(Filas f, MyFrame frame) {
         this.filas = f;
         this.frame = frame;
-        this.posicaoFila = posicaoFila;
     }
 
     public Filas getFilas() {

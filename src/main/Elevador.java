@@ -162,7 +162,7 @@ public class Elevador implements Runnable {
             vazio = 4;
 
             try {
-                this.wait(4000);
+                this.wait(5000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Elevador.class.getName()).log(Level.SEVERE, null, ex);
             }

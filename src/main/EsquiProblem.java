@@ -22,27 +22,25 @@ public class EsquiProblem {
      */
     public static void main(String[] args) {        
 
-        int posicaoFinal = 420;
         MyFrame frame = new MyFrame();
+//        frame.pack();
+//        frame.setLocationRelativeTo(null);
 
         Filas filas = new Filas();
 
         new Thread(new Elevador(filas, frame)).start();
 
-        Random gerador = new Random();
-
-
 //        frame.adicionarEsquiador(150, 20);
 
         while(true){
+//            System.out.println(frame.getComponentCount());
             try {
-                posicaoFinal -= 20;
                 //Cria um novo esquiador.
-                new Thread(new Esquiador(filas, frame, posicaoFinal)).start();
+                new Thread(new Esquiador(filas, frame)).start();
 
                 //Aguarda um intervalo entre ]0, 1]s para criar
                 //um novo esquiador.
-                Thread.sleep(gerador.nextInt(1000) + 1);
+                Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(EsquiProblem.class.getName()).log(Level.SEVERE, null, ex);
             }
