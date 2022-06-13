@@ -48,7 +48,7 @@ public class Esquiador implements Runnable {
 
             System.out.println();
             System.out.println("Esquiador entrou na fila: LeftSingle");
-            x = filas.getLeftSingle().size() * 20;
+            x = (filas.getLeftSingle().size() + 1) * 20;
             y = 20;
 
         } else if (filas.getRightSingle().size() <= filas.getLeftSingle().size()
@@ -59,7 +59,7 @@ public class Esquiador implements Runnable {
 
             System.out.println();
             System.out.println("Esquiador entrou na fila: RightSingle");
-            x = filas.getRightSingle().size() * 20;
+            x = (filas.getRightSingle().size() + 1) * 20;
             y = 60;
         } else if (filas.getLeftTriple().size() <= filas.getRightTriple().size()) {
             filas.getLeftTriple().add(this);
@@ -67,7 +67,7 @@ public class Esquiador implements Runnable {
 
             System.out.println();
             System.out.println("Esquiador entrou na fila: LeftTriple");
-            x = filas.getLeftTriple().size() * 20;
+            x = (filas.getLeftTriple().size() + 1) * 20;
             y = 100;
         } else {
             filas.getRightTriple().add(this);
@@ -75,7 +75,7 @@ public class Esquiador implements Runnable {
 
             System.out.println();
             System.out.println("Esquiador entrou na fila: RightTriple");
-            x = filas.getRightTriple().size() * 20;
+            x = (filas.getRightTriple().size() + 1) * 20;
             y = 140;
         }
 

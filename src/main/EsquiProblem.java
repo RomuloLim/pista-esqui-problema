@@ -6,8 +6,10 @@
 package main;
 
 import frames.MyFrame;
+import frames.TelaOrientacao;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,17 +25,14 @@ public class EsquiProblem {
     public static void main(String[] args) {        
 
         MyFrame frame = new MyFrame();
-//        frame.pack();
-//        frame.setLocationRelativeTo(null);
+        TelaOrientacao telaAux = new TelaOrientacao();
 
         Filas filas = new Filas();
 
+
         new Thread(new Elevador(filas, frame)).start();
 
-//        frame.adicionarEsquiador(150, 20);
-
         while(true){
-//            System.out.println(frame.getComponentCount());
             try {
                 //Cria um novo esquiador.
                 new Thread(new Esquiador(filas, frame)).start();
