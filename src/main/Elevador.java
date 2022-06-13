@@ -46,129 +46,137 @@ public class Elevador implements Runnable {
     @Override
     public synchronized void run() {
         while (true) {
-            boolean leftTriple = false;
-            boolean rightTriple = false;
-            Esquiador esqui;
-
-                if (filas.getLeftTriple().size() > 2
-                        && vazio > 2) {
-                    for (int i = 2; i >= 0; i--) {
-                        frame.removerEsquiador("LT", filas.getLeftTriple().size());
-                        esqui = filas.getLeftTriple().remove();
-                        vazio--;
-
-                        tempoEmFila = tempoEmFila
-                                + "\nTempo em fila de esquiador em LeftTriple: "
-                                + esqui.tempoEmFila() + " milisegundos.";
-                        assentosOcupados++;
-                    }
-
-                    elevador = "LT LT LT";
-                    leftTriple = true;
-                } else if (filas.getRightTriple().size() > 2
-                        && vazio > 2) {
-                    for (int i = 2; i >= 0; i--) {
-                        frame.removerEsquiador("RT", filas.getRightTriple().size());
-                        esqui = filas.getRightTriple().remove();
-                        vazio--;
-
-                        tempoEmFila = tempoEmFila
-                                + "\nTempo em fila de esquiador em RightTriple: "
-                                + esqui.tempoEmFila() + " milisegundos.";
-                        assentosOcupados++;
-                    }
-
-                    elevador = "RT RT RT";
-                    rightTriple = true;
-            }
-
-            //Caso não tenha embarcado ninguém das filas anteriores.
-            if (!leftTriple && !rightTriple) {
-
-                int random = new Random().nextInt(2);
-
-                //Utilizada para alternar as filas.
-                boolean chave = random == 0;
-
-                while (vazio > 0
-                        && (filas.getLeftSingle().size() > 0
-                        || filas.getRightSingle().size() > 0)) {
-
-                    if (chave) {
-                        if (filas.getLeftSingle().size() > 0) {
-                            frame.removerEsquiador("LS", filas.getLeftSingle().size());
-                            esqui = filas.getLeftSingle().remove();
-                            vazio--;
-
-                            tempoEmFila = tempoEmFila
-                                    + "\nTempo em fila de esquiador em LeftSingle: "
-                                    + esqui.tempoEmFila() + " milisegundos.";
-
-                            elevador = "LS " + elevador;
-                            assentosOcupados++;
-                        }
-
-                        chave = false;
-                    } else {
-                        if (filas.getRightSingle().size() > 0) {
-                            frame.removerEsquiador("RS", filas.getRightSingle().size());
-                            esqui = filas.getRightSingle().remove();
-                            vazio--;
-
-                            tempoEmFila = tempoEmFila
-                                    + "\nTempo em fila de esquiador em RightSingle: "
-                                    + esqui.tempoEmFila() + " milisegundos.";
-
-                            elevador = elevador + "RS ";
-                            assentosOcupados++;
-                        }
-
-                        chave = true;
-                    }
-                }
-            } else {
-                if (leftTriple
-                        && filas.getRightSingle().size() > 0) {
-                    frame.removerEsquiador("RS", filas.getRightSingle().size());
-                    esqui = filas.getRightSingle().remove();
-                    vazio--;
-
-                    tempoEmFila = tempoEmFila
-                            + "\nTempo em fila de esquiador em RightSingle: "
-                            + esqui.tempoEmFila() + " milisegundos.";
-
-                    elevador = elevador + " RS";
-                    assentosOcupados++;
-                }
-
-                if (rightTriple
-                        && filas.getLeftSingle().size() > 0) {
-                    frame.removerEsquiador("RS", filas.getRightSingle().size());
-                    esqui = filas.getLeftSingle().remove();
-                    vazio--;
-
-                    tempoEmFila = tempoEmFila
-                            + "\nTempo em fila de esquiador em LeftSingle: "
-                            + esqui.tempoEmFila() + " milisegundos.";
-
-                    elevador = "LS " + elevador;
-                    assentosOcupados++;
-                }
-            }
-
-            imprimir();
-
-            elevador = "";
-            tempoEmFila = "";
-
-            contadorElevador++;
-            vazio = 4;
-
             try {
                 this.wait(5000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Elevador.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+           if(filas.getTotalFilas() < 3){
+                   System.out.println("===== FIM DO PROGRAMA =====");
+                   System.out.println("Número de assentos ocupados: "+assentosOcupados);
+                   System.out.println("Número total de assentos: "+contadorElevador*4);
+                   System.out.println("Taxa de aproveitamento: "+ (float) assentosOcupados/(contadorElevador*4));
+                   System.exit(0);
+           }else{
+               boolean leftTriple = false;
+               boolean rightTriple = false;
+               Esquiador esqui;
+
+               if (filas.getLeftTriple().size() > 2
+                       && vazio > 2) {
+                   for (int i = 2; i >= 0; i--) {
+                       frame.removerEsquiador("LT", filas.getLeftTriple().size());
+                       esqui = filas.getLeftTriple().remove();
+                       vazio--;
+
+                       tempoEmFila = tempoEmFila
+                               + "\nTempo em fila de esquiador em LeftTriple: "
+                               + esqui.tempoEmFila() + " milisegundos.";
+                       assentosOcupados++;
+                   }
+
+                   elevador = "LT LT LT";
+                   leftTriple = true;
+               } else if (filas.getRightTriple().size() > 2
+                       && vazio > 2) {
+                   for (int i = 2; i >= 0; i--) {
+                       frame.removerEsquiador("RT", filas.getRightTriple().size());
+                       esqui = filas.getRightTriple().remove();
+                       vazio--;
+
+                       tempoEmFila = tempoEmFila
+                               + "\nTempo em fila de esquiador em RightTriple: "
+                               + esqui.tempoEmFila() + " milisegundos.";
+                       assentosOcupados++;
+                   }
+
+                   elevador = "RT RT RT";
+                   rightTriple = true;
+               }
+
+               //Caso não tenha embarcado ninguém das filas anteriores.
+               if (!leftTriple && !rightTriple) {
+
+                   int random = new Random().nextInt(2);
+
+                   //Utilizada para alternar as filas.
+                   boolean chave = random == 0;
+
+                   while (vazio > 0
+                           && (filas.getLeftSingle().size() > 0
+                           || filas.getRightSingle().size() > 0)) {
+
+                       if (chave) {
+                           if (filas.getLeftSingle().size() > 0) {
+                               frame.removerEsquiador("LS", filas.getLeftSingle().size());
+                               esqui = filas.getLeftSingle().remove();
+                               vazio--;
+
+                               tempoEmFila = tempoEmFila
+                                       + "\nTempo em fila de esquiador em LeftSingle: "
+                                       + esqui.tempoEmFila() + " milisegundos.";
+
+                               elevador = "LS " + elevador;
+                               assentosOcupados++;
+                           }
+
+                           chave = false;
+                       } else {
+                           if (filas.getRightSingle().size() > 0) {
+                               frame.removerEsquiador("RS", filas.getRightSingle().size());
+                               esqui = filas.getRightSingle().remove();
+                               vazio--;
+
+                               tempoEmFila = tempoEmFila
+                                       + "\nTempo em fila de esquiador em RightSingle: "
+                                       + esqui.tempoEmFila() + " milisegundos.";
+
+                               elevador = elevador + "RS ";
+                               assentosOcupados++;
+                           }
+
+                           chave = true;
+                       }
+                   }
+               } else {
+                   if (leftTriple
+                           && filas.getRightSingle().size() > 0) {
+                       frame.removerEsquiador("RS", filas.getRightSingle().size());
+                       esqui = filas.getRightSingle().remove();
+                       vazio--;
+
+                       tempoEmFila = tempoEmFila
+                               + "\nTempo em fila de esquiador em RightSingle: "
+                               + esqui.tempoEmFila() + " milisegundos.";
+
+                       elevador = elevador + " RS";
+                       assentosOcupados++;
+                   }
+
+                   if (rightTriple
+                           && filas.getLeftSingle().size() > 0) {
+                       frame.removerEsquiador("RS", filas.getRightSingle().size());
+                       esqui = filas.getLeftSingle().remove();
+                       vazio--;
+
+                       tempoEmFila = tempoEmFila
+                               + "\nTempo em fila de esquiador em LeftSingle: "
+                               + esqui.tempoEmFila() + " milisegundos.";
+
+                       elevador = "LS " + elevador;
+                       assentosOcupados++;
+                   }
+               }
+
+               imprimir();
+
+               elevador = "";
+               tempoEmFila = "";
+
+               contadorElevador++;
+               vazio = 4;
+           }
 
         }
     }

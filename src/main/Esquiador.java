@@ -38,8 +38,8 @@ public class Esquiador implements Runnable {
 
     @Override
     public synchronized void run() {
-        int y = 0;
-        int x = 0;
+        int y;
+        int x;
         if (filas.getLeftSingle().size() < filas.getRightSingle().size()
                 && filas.getLeftSingle().size() < (filas.getLeftTriple().size() * 2)
                 && filas.getLeftSingle().size() < (filas.getRightTriple().size() * 2)) {

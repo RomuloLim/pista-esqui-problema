@@ -57,4 +57,8 @@ public class Filas {
     public void setRightSingle(Queue<Esquiador> rightSingle) {
         this.rightSingle = rightSingle;
     }
+
+    public int getTotalFilas(){
+        return leftSingle.size() + rightSingle.size() + leftTriple.size() + rightTriple.size();
+    }
 }
