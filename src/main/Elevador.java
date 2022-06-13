@@ -21,6 +21,8 @@ public class Elevador implements Runnable {
     Filas filas;
     int vazio = 4;
     int contadorElevador = 1;
+
+    int assentosOcupados = 0;
     MyFrame frame;
 
 
@@ -48,8 +50,6 @@ public class Elevador implements Runnable {
             boolean rightTriple = false;
             Esquiador esqui;
 
-            int random = new Random().nextInt(2);
-
                 if (filas.getLeftTriple().size() > 2
                         && vazio > 2) {
                     for (int i = 2; i >= 0; i--) {
@@ -60,6 +60,7 @@ public class Elevador implements Runnable {
                         tempoEmFila = tempoEmFila
                                 + "\nTempo em fila de esquiador em LeftTriple: "
                                 + esqui.tempoEmFila() + " milisegundos.";
+                        assentosOcupados++;
                     }
 
                     elevador = "LT LT LT";
@@ -74,6 +75,7 @@ public class Elevador implements Runnable {
                         tempoEmFila = tempoEmFila
                                 + "\nTempo em fila de esquiador em RightTriple: "
                                 + esqui.tempoEmFila() + " milisegundos.";
+                        assentosOcupados++;
                     }
 
                     elevador = "RT RT RT";
@@ -83,7 +85,7 @@ public class Elevador implements Runnable {
             //Caso não tenha embarcado ninguém das filas anteriores.
             if (!leftTriple && !rightTriple) {
 
-                random = new Random().nextInt(2);
+                int random = new Random().nextInt(2);
 
                 //Utilizada para alternar as filas.
                 boolean chave = random == 0;
@@ -103,6 +105,7 @@ public class Elevador implements Runnable {
                                     + esqui.tempoEmFila() + " milisegundos.";
 
                             elevador = "LS " + elevador;
+                            assentosOcupados++;
                         }
 
                         chave = false;
@@ -117,6 +120,7 @@ public class Elevador implements Runnable {
                                     + esqui.tempoEmFila() + " milisegundos.";
 
                             elevador = elevador + "RS ";
+                            assentosOcupados++;
                         }
 
                         chave = true;
@@ -134,6 +138,7 @@ public class Elevador implements Runnable {
                             + esqui.tempoEmFila() + " milisegundos.";
 
                     elevador = elevador + " RS";
+                    assentosOcupados++;
                 }
 
                 if (rightTriple
@@ -147,6 +152,7 @@ public class Elevador implements Runnable {
                             + esqui.tempoEmFila() + " milisegundos.";
 
                     elevador = "LS " + elevador;
+                    assentosOcupados++;
                 }
             }
 

@@ -25,14 +25,15 @@ public class EsquiProblem {
     public static void main(String[] args) {        
 
         MyFrame frame = new MyFrame();
-        TelaOrientacao telaAux = new TelaOrientacao();
 
         Filas filas = new Filas();
 
 
         new Thread(new Elevador(filas, frame)).start();
 
-        while(true){
+        int countEsquiadores = 0;
+
+        while(countEsquiadores < 120){
             try {
                 //Cria um novo esquiador.
                 new Thread(new Esquiador(filas, frame)).start();
@@ -43,6 +44,8 @@ public class EsquiProblem {
             } catch (InterruptedException ex) {
                 Logger.getLogger(EsquiProblem.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+            countEsquiadores++;
         }
     }
 }

@@ -11,15 +11,15 @@ public class MyFrame extends JFrame {
     JPanel jpanel;
     JLabel elevador;
     public MyFrame(){
-        this.label = new ArrayList<>();
-        this.setTitle("Fila de esquiadores");
-        this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setSize(420, 420);
-        this.setVisible(true);
-        this.setBackground(Color.darkGray);
-        this.setLayout(null);
-        this.setLocationRelativeTo(null);
+        label = new ArrayList<>();
+        setTitle("Fila de esquiadores");
+        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(420, 420);
+        setVisible(true);
+        setBackground(Color.darkGray);
+        setLayout(null);
+        setLocationRelativeTo(null);
 
         jpanel = new JPanel();
         jpanel.setLayout(null);
@@ -27,9 +27,8 @@ public class MyFrame extends JFrame {
         jpanel.setSize(420, 420);
         jpanel.setVisible(true);
         jpanel.setBounds(0, 0, 420, 420);
-        add(jpanel);
 
-        elevador = new ElevadorLabel();
+        add(jpanel);
     }
 
     public void adicionarEsquiador(int x, int y){
@@ -53,7 +52,6 @@ public class MyFrame extends JFrame {
     }
 
     protected void findEsquiador(int x, int y){
-        System.out.println(jpanel.getComponentAt(x, y));
         jpanel.remove(jpanel.getComponentAt(x, y));
         jpanel.revalidate();
         jpanel.repaint();
