@@ -28,6 +28,7 @@ public class EsquiProblem {
 
         Filas filas = new Filas();
 
+        boolean reordena = false;
 
         new Thread(new Elevador(filas, frame)).start();
 
@@ -46,6 +47,16 @@ public class EsquiProblem {
             }
 
             countEsquiadores++;
+        }
+
+        while (!reordena){
+            if(filas.getLeftTriple().size() < 3
+                    && filas.getLeftTriple().size() > 0
+                    && filas.getRightTriple().size() < 3
+                    && filas.getRightTriple().size() > 0){
+                filas.reordena();
+                reordena = true;
+            }
         }
     }
 }

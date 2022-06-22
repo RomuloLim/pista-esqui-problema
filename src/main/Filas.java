@@ -61,4 +61,13 @@ public class Filas {
     public int getTotalFilas(){
         return leftSingle.size() + rightSingle.size() + leftTriple.size() + rightTriple.size();
     }
+
+    public void reordena(){
+        int rightTotal = rightTriple.size();
+        if (rightTotal > 0){
+            for (int i = 0; i < rightTotal; i++) {
+                System.out.println(rightTriple);
+            }
+        }
+    }
 }

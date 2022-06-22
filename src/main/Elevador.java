@@ -177,7 +177,6 @@ public class Elevador implements Runnable {
                contadorElevador++;
                vazio = 4;
            }
-
         }
     }
 
