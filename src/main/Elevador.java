@@ -52,7 +52,7 @@ public class Elevador implements Runnable {
                 Logger.getLogger(Elevador.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-           if(filas.getTotalFilas() < 3){
+           if(filas.getTotalFilas() == 0){
                    System.out.println("===== FIM DO PROGRAMA =====");
                    System.out.println("Número de assentos ocupados: "+assentosOcupados);
                    System.out.println("Número total de assentos: "+contadorElevador*4);

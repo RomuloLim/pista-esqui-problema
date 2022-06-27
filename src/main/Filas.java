@@ -1,18 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
-/**
- *
- * @author Schinwinkwinsky
- */
 public class Filas {
     private Queue<Esquiador> leftSingle;
     private Queue<Esquiador> leftTriple;
@@ -63,10 +53,17 @@ public class Filas {
     }
 
     public void reordena(){
-        int rightTotal = rightTriple.size();
-        if (rightTotal > 0){
-            for (int i = 0; i < rightTotal; i++) {
-                System.out.println(rightTriple);
+        if (rightTriple.size() > 0){
+            for (int i = -1; i < rightTriple.size(); i++) {
+                rightSingle.add(rightTriple.element());
+                rightTriple.remove();
+            }
+        }
+
+        if (leftTriple.size() > 0){
+            for (int i = 0; i <= leftTriple.size(); i++) {
+                leftSingle.add(leftTriple.element());
+                leftTriple.remove();
             }
         }
     }
