@@ -5,10 +5,6 @@
  */
 package main;
 
-/**
- *
- * @author Cleiton
- */
 public class GeraEsquiador implements Runnable{
 
     Filas filas;

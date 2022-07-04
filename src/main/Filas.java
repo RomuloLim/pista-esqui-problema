@@ -10,42 +10,26 @@ public class Filas {
     private Queue<Esquiador> rightSingle;
 
     public Filas() {
-        this.leftSingle = new LinkedList<>();
-        this.leftTriple = new LinkedList<>();
-        this.rightTriple = new LinkedList<>();
-        this.rightSingle = new LinkedList<>();
+        leftSingle = new LinkedList<>();
+        leftTriple = new LinkedList<>();
+        rightTriple = new LinkedList<>();
+        rightSingle = new LinkedList<>();
     }
 
     public Queue<Esquiador> getLeftSingle() {
         return leftSingle;
     }
 
-    public void setLeftSingle(Queue<Esquiador> leftSingle) {
-        this.leftSingle = leftSingle;
-    }
-
     public Queue<Esquiador> getLeftTriple() {
         return leftTriple;
-    }
-
-    public void setLeftTriple(Queue<Esquiador> leftTriple) {
-        this.leftTriple = leftTriple;
     }
 
     public Queue<Esquiador> getRightTriple() {
         return rightTriple;
     }
 
-    public void setRightTriple(Queue<Esquiador> rightTriple) {
-        this.rightTriple = rightTriple;
-    }
-
     public Queue<Esquiador> getRightSingle() {
         return rightSingle;
-    }
-
-    public void setRightSingle(Queue<Esquiador> rightSingle) {
-        this.rightSingle = rightSingle;
     }
 
     public int getTotalFilas(){
@@ -66,5 +50,7 @@ public class Filas {
                 leftTriple.remove();
             }
         }
+
+        System.out.println("*-===== As filas LT e RT estão bloqueadas por falta de esquiador.\nOs esquiadores foram movidos para as filas SINGLE =====-*");
     }
 }

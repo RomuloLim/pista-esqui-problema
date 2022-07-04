@@ -5,39 +5,23 @@
  */
 package main;
 
-import frames.MyFrame;
-import frames.TelaOrientacao;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Schinwinkwinsky
- */
 public class EsquiProblem {
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws InterruptedException {
-
-        MyFrame frame = new MyFrame();
-
         Filas filas = new Filas();
 
         boolean reordena = false;
 
-        new Thread(new Elevador(filas, frame)).start();
+        new Thread(new Elevador(filas)).start();
 
         int countEsquiadores = 0;
 
         while(countEsquiadores < 120){
             try {
                 //Cria um novo esquiador.
-                new Thread(new Esquiador(filas, frame)).start();
+                new Thread(new Esquiador(filas)).start();
 
                 //Aguarda um intervalo entre ]0, 1]s para criar
                 //um novo esquiador.
