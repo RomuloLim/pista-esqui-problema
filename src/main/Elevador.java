@@ -10,23 +10,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Elevador implements Runnable {
-
     Filas filas;
-    int vazio = 4;
+    int assentosRestantes = 4;
     int totalAssentos = 1;
-
     int assentosOcupados = 0;
-
     float somaTempoFila = 0;
-
     boolean vezDaLeftSingle;
-
+    boolean vezDaLeftTriple;
     String elevador = "";
     String stringTempoFila = "";
-
     public Elevador(Filas f) {
         filas = f;
-        vezDaLeftSingle = new Random().nextInt(2) == 0;
+        vezDaLeftSingle = vezDaLeftTriple = new Random().nextInt(2) == 0;
     }
 
     @Override
@@ -50,11 +45,12 @@ public class Elevador implements Runnable {
                boolean rightTriple = false;
                Esquiador esqui;
 
-               if (filas.getLeftTriple().size() > 2
-                       && vazio > 2) {
+               if ((vezDaLeftTriple || filas.getRightTriple().size() == 0)
+                       && filas.getLeftTriple().size() > 2
+                       && assentosRestantes > 2) {
                    for (int i = 2; i >= 0; i--) {
                        esqui = filas.getLeftTriple().remove();
-                       vazio--;
+                       assentosRestantes--;
 
                        stringTempoFila = stringTempoFila
                                + "\nTempo em fila de esquiador da LeftTriple: "
@@ -65,11 +61,12 @@ public class Elevador implements Runnable {
 
                    elevador = "LT LT LT";
                    leftTriple = true;
+                   vezDaLeftTriple = false;
                } else if (filas.getRightTriple().size() > 2
-                       && vazio > 2) {
+                       && assentosRestantes > 2) {
                    for (int i = 2; i >= 0; i--) {
                        esqui = filas.getRightTriple().remove();
-                       vazio--;
+                       assentosRestantes--;
 
                        stringTempoFila = stringTempoFila
                                + "\nTempo em fila de esquiador da RightTriple: "
@@ -79,7 +76,7 @@ public class Elevador implements Runnable {
                    }
 
                    elevador = "RT RT RT";
-                   rightTriple = true;
+                   rightTriple = vezDaLeftTriple = true;
                }
 
                //Caso não tenha embarcado ninguém das filas anteriores.
@@ -90,14 +87,14 @@ public class Elevador implements Runnable {
                    //Utilizada para alternar as filas.
                    boolean chave = random == 0;
 
-                   while (vazio > 0
+                   while (assentosRestantes > 0
                            && (filas.getLeftSingle().size() > 0
                            || filas.getRightSingle().size() > 0)) {
 
                        if (chave) {
                            if (filas.getLeftSingle().size() > 0) {
                                esqui = filas.getLeftSingle().remove();
-                               vazio--;
+                               assentosRestantes--;
 
                                stringTempoFila = stringTempoFila
                                        + "\nTempo em fila de esquiador da LeftSingle: "
@@ -112,7 +109,7 @@ public class Elevador implements Runnable {
                        } else {
                            if (filas.getRightSingle().size() > 0) {
                                esqui = filas.getRightSingle().remove();
-                               vazio--;
+                               assentosRestantes--;
 
                                stringTempoFila = stringTempoFila
                                        + "\nTempo em fila de esquiador da RightSingle: "
@@ -127,10 +124,10 @@ public class Elevador implements Runnable {
                        }
                    }
                } else {
-                   if (!vezDaLeftSingle
+                   if ((!vezDaLeftSingle || filas.getLeftSingle().size() == 0)
                            && filas.getRightSingle().size() > 0) {
                        esqui = filas.getRightSingle().remove();
-                       vazio--;
+                       assentosRestantes--;
 
                        stringTempoFila = stringTempoFila
                                + "\nTempo em fila de esquiador da RightSingle: "
@@ -142,7 +139,7 @@ public class Elevador implements Runnable {
                        vezDaLeftSingle = true;
                    }else if (filas.getLeftSingle().size() > 0) {
                        esqui = filas.getLeftSingle().remove();
-                       vazio--;
+                       assentosRestantes--;
 
                        stringTempoFila = stringTempoFila
                                + "\nTempo em fila de esquiador da LeftSingle: "
@@ -161,7 +158,7 @@ public class Elevador implements Runnable {
                stringTempoFila = "";
 
                totalAssentos++;
-               vazio = 4;
+               assentosRestantes = 4;
            }
         }
     }
