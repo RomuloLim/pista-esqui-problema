@@ -51,6 +51,6 @@ public class Filas {
             }
         }
 
-        System.out.println("*-===== As filas LT e RT estão bloqueadas por falta de esquiador.\nOs esquiadores foram movidos para as filas SINGLE =====-*");
+        System.out.println("*-===== As filas LT e RT estao bloqueadas por falta de esquiador.\nOs esquiadores *TRIPLE* foram movidos para as filas *SINGLE* =====-*");
     }
 }

@@ -48,19 +48,19 @@ public class Elevador implements Runnable {
            }else{
                boolean leftTriple = false;
                boolean rightTriple = false;
-               Esquiador esqui;
+               Esquiador esquiador;
 
                if (filas.getLeftTriple().size() > 2
                        && vazio > 2) {
                    for (int i = 2; i >= 0; i--) {
-                       esqui = filas.getLeftTriple().remove();
+                       esquiador = filas.getLeftTriple().remove();
                        vazio--;
 
                        stringTempoFila = stringTempoFila
-                               + "\nTempo em fila de esquiador da LeftTriple: "
-                               + esqui.tempoEmFila() + " segundos.";
+                               + "\nO tempo em fila do esquiador da LeftTriple foi: "
+                               + esquiador.tempoEmFila() + " segundos.";
                        assentosOcupados++;
-                       somaTempoFila = somaTempoFila + esqui.tempoEmFila();
+                       somaTempoFila = somaTempoFila + esquiador.tempoEmFila();
                    }
 
                    elevador = "LT LT LT";
@@ -68,14 +68,14 @@ public class Elevador implements Runnable {
                } else if (filas.getRightTriple().size() > 2
                        && vazio > 2) {
                    for (int i = 2; i >= 0; i--) {
-                       esqui = filas.getRightTriple().remove();
+                       esquiador = filas.getRightTriple().remove();
                        vazio--;
 
                        stringTempoFila = stringTempoFila
                                + "\nTempo em fila de esquiador da RightTriple: "
-                               + esqui.tempoEmFila() + " segundos.";
+                               + esquiador.tempoEmFila() + " segundos.";
                        assentosOcupados++;
-                       somaTempoFila = somaTempoFila + esqui.tempoEmFila();
+                       somaTempoFila = somaTempoFila + esquiador.tempoEmFila();
                    }
 
                    elevador = "RT RT RT";
@@ -96,31 +96,31 @@ public class Elevador implements Runnable {
 
                        if (chave) {
                            if (filas.getLeftSingle().size() > 0) {
-                               esqui = filas.getLeftSingle().remove();
+                               esquiador = filas.getLeftSingle().remove();
                                vazio--;
 
                                stringTempoFila = stringTempoFila
                                        + "\nTempo em fila de esquiador da LeftSingle: "
-                                       + esqui.tempoEmFila() + " segundos.";
+                                       + esquiador.tempoEmFila() + " segundos.";
 
                                elevador = "LS " + elevador;
                                assentosOcupados++;
-                               somaTempoFila = somaTempoFila + esqui.tempoEmFila();
+                               somaTempoFila = somaTempoFila + esquiador.tempoEmFila();
                            }
 
                            chave = false;
                        } else {
                            if (filas.getRightSingle().size() > 0) {
-                               esqui = filas.getRightSingle().remove();
+                               esquiador = filas.getRightSingle().remove();
                                vazio--;
 
                                stringTempoFila = stringTempoFila
                                        + "\nTempo em fila de esquiador da RightSingle: "
-                                       + esqui.tempoEmFila() + " segundos.";
+                                       + esquiador.tempoEmFila() + " segundos.";
 
                                elevador = elevador + "RS ";
                                assentosOcupados++;
-                               somaTempoFila = somaTempoFila + esqui.tempoEmFila();
+                               somaTempoFila = somaTempoFila + esquiador.tempoEmFila();
                            }
 
                            chave = true;
@@ -129,33 +129,32 @@ public class Elevador implements Runnable {
                } else {
                    if (!vezDaLeftSingle
                            && filas.getRightSingle().size() > 0) {
-                       esqui = filas.getRightSingle().remove();
+                       esquiador = filas.getRightSingle().remove();
                        vazio--;
 
-                       stringTempoFila = stringTempoFila
-                               + "\nTempo em fila de esquiador da RightSingle: "
-                               + esqui.tempoEmFila() + " segundos.";
+                       stringTempoFila = stringTempoFila + "\nTempo em fila de esquiador da RightSingle: "
+                               + esquiador.tempoEmFila() + " segundos.";
 
                        elevador = elevador + " RS";
                        assentosOcupados++;
-                       somaTempoFila = somaTempoFila + esqui.tempoEmFila();
+                       somaTempoFila = somaTempoFila + esquiador.tempoEmFila();
                        vezDaLeftSingle = true;
                    }else if (filas.getLeftSingle().size() > 0) {
-                       esqui = filas.getLeftSingle().remove();
+                       esquiador = filas.getLeftSingle().remove();
                        vazio--;
 
                        stringTempoFila = stringTempoFila
                                + "\nTempo em fila de esquiador da LeftSingle: "
-                               + esqui.tempoEmFila() + " segundos.";
+                               + esquiador.tempoEmFila() + " segundos.";
 
                        elevador = "LS " + elevador;
                        assentosOcupados++;
-                       somaTempoFila = somaTempoFila + esqui.tempoEmFila();
+                       somaTempoFila = somaTempoFila + esquiador.tempoEmFila();
                        vezDaLeftSingle = false;
                    }
                }
 
-               imprimir();
+               printDadosElevador();
 
                elevador = "";
                stringTempoFila = "";
@@ -166,18 +165,17 @@ public class Elevador implements Runnable {
         }
     }
 
-    private void imprimir() {
-        System.out.println();
-        System.out.println("Elevador: " + totalAssentos);
+    private void printDadosElevador() {
+        System.out.println("\nElevador nº " + totalAssentos);
         System.out.println(elevador);
-        System.out.println("Tempos em fila dos esquiadores:");
-        System.out.println(stringTempoFila);
 
-        System.out.println();
-        System.out.println("Filas apos a ida do elevador:");
-        System.out.println("LeftSingle: " + filas.getLeftSingle().size());
-        System.out.println("RightSingle: " + filas.getRightSingle().size());
-        System.out.println("LeftTriple: " + filas.getLeftTriple().size());
-        System.out.println("RightTriple: " + filas.getRightTriple().size() + "\n");
+        System.out.println("\nFilas depois do elevador passar:");
+        System.out.println("LeftTriple (LT): " + filas.getLeftTriple().size());
+        System.out.println("RightTriple (RT): " + filas.getRightTriple().size());
+        System.out.println("LeftSingle (LS): " + filas.getLeftSingle().size());
+        System.out.println("RightSingle (RS): " + filas.getRightSingle().size());
+
+        System.out.println("Tempo dos esquiadores na fila:");
+        System.out.println(stringTempoFila);
     }
 }
