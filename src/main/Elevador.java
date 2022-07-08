@@ -6,14 +6,19 @@ import java.util.logging.Logger;
 
 public class Elevador implements Runnable {
     Filas filas;
+
     int assentosRestantes = 4;
-    int totalAssentos = 1;
+    int totalAssentos = 0;
     int assentosOcupados = 0;
+
     float somaTempoFila = 0;
+
     boolean vezDaLeftSingle;
     boolean vezDaLeftTriple;
+
     String elevador = "";
     String stringTempoFila = "";
+
     public Elevador(Filas f) {
         filas = f;
         vezDaLeftSingle = vezDaLeftTriple = new Random().nextInt(2) == 0;
@@ -40,7 +45,7 @@ public class Elevador implements Runnable {
                boolean rightTriple = false;
                Esquiador esquiador;
 
-               if ((vezDaLeftTriple || filas.getRightTriple().size() == 0)
+               if ((vezDaLeftTriple || filas.getRightTriple().size() < 3)
                        && filas.getLeftTriple().size() > 2
                        && assentosRestantes > 2) {
                    for (int i = 2; i >= 0; i--) {
@@ -158,14 +163,14 @@ public class Elevador implements Runnable {
     }
 
     private void printDadosElevador() {
-        System.out.println("\nElevador nº " + totalAssentos);
+        System.out.println("------>\nElevador n: " + totalAssentos);
         System.out.println(elevador);
 
         System.out.println("\nFilas depois do elevador passar:");
-        System.out.println("LeftTriple (LT): " + filas.getLeftTriple().size());
-        System.out.println("RightTriple (RT): " + filas.getRightTriple().size());
         System.out.println("LeftSingle (LS): " + filas.getLeftSingle().size());
         System.out.println("RightSingle (RS): " + filas.getRightSingle().size());
+        System.out.println("LeftTriple (LT): " + filas.getLeftTriple().size());
+        System.out.println("RightTriple (RT): " + filas.getRightTriple().size());
 
         System.out.println("Tempo dos esquiadores na fila:");
         System.out.println(stringTempoFila);

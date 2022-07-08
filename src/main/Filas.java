@@ -38,7 +38,7 @@ public class Filas {
 
     public void reordena(){
         if (rightTriple.size() > 0){
-            for (int i = -1; i < rightTriple.size(); i++) {
+            for (int i = 0; i <= rightTriple.size(); i++) {
                 rightSingle.add(rightTriple.element());
                 rightTriple.remove();
             }
